@@ -4,9 +4,6 @@ package ai.verse.repo;
 import jakarta.persistence.*;
 
 
-//import javax.persistence.*;
-
-
 @Entity
 @Table(name = "POSTS")
 public class PostEntity {
