@@ -18,9 +18,9 @@ import java.util.logging.Logger;
 public class Sched {
 
 
+
     @Autowired
     PostRepository postRepository;
-
 
     @Scheduled(fixedRate = 10000)
     public void scheduledMethod() {
@@ -44,9 +44,16 @@ public class Sched {
 
       // Here we are iterating over all the posts and calling sentimen class
         for(int h=0; h<list.size(); h++ )
-        { Sentiment sm = new Sentiment();
+        {
+
+            Sentiment sm = new Sentiment();
             PostEntity post = list.get(h);   // This will get post in a loop
             String sentm = sm.getSentimentOfText(post.getPost());
+
+           post.setSentiment(sentm);
+              postRepository.save(post);  // save in database
+
+
             System.out.println(post);
             System.out.println(sentm);
         }

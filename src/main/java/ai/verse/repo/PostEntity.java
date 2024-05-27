@@ -16,6 +16,9 @@ public class PostEntity {
 
     private String post;
 
+
+    private String sentiment;
+
     public Long getId() {
         return id;
     }
@@ -32,11 +35,11 @@ public class PostEntity {
         this.post = post;
     }
 
-    @Override
-    public String toString() {
-        return "\n ------ PostEntity{" +
-                "id=" + id +
-                ", post='" + post + '\'' +
-                '}';
+    public String getSentiment() {
+        return sentiment;
+    }
+
+    public void setSentiment(String sentiment) {
+        this.sentiment = sentiment;
     }
 }
