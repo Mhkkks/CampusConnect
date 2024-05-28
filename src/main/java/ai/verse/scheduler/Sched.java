@@ -2,6 +2,7 @@ package ai.verse.scheduler;
 
 
 import ai.verse.Sentiment;
+import ai.verse.repo.AadhaarRepository;
 import ai.verse.repo.PostEntity;
 import ai.verse.repo.PostRepository;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,21 @@ public class Sched {
     @Autowired
     PostRepository postRepository;
 
+    @Autowired
+    AadhaarRepository aadhaarRepository;
+
+
+    // Call this automatically every 10 seconds
     @Scheduled(fixedRate = 10000)
+    public void testData() {
+        System.out.println(" --------------- testData Called on:" + new Date());
+        List data = aadhaarRepository.findAll();
+        System.out.println(data);
+
+    }
+
+
+    //  @Scheduled(fixedRate = 10000)
     public void scheduledMethod() {
         System.out.println(" --------------- scheduledMethod Called on:" + new Date());
 
