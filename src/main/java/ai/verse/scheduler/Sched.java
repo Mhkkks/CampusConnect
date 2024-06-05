@@ -31,34 +31,23 @@ public class Sched {
     AadhaarRepository aadhaarRepository;
 
 
-
     // Call this automatically every 10 seconds
 //@Scheduled(fixedRate = 10000)
     public void testData() {
         System.out.println(" --------------- testData Called on:" + new Date());
         List data = aadhaarRepository.findAll();
-       System.out.println(data);
-
+        System.out.println(data);
     }
 
 
-   @Scheduled(fixedRate = 10000)
-
-
-    /**
-     *
-     *
-     */
-
+    @Scheduled(fixedRate = 100000)
     public void updateSentimentInDatabase() {
         System.out.println(" --------------- updateSentimentInDatabase Called on:" + new Date());
 
+        //  List<PostEntity> list = postRepository.findAll();  // Get all posts from database
+        List<PostEntity> list = postRepository.findRowsWithNoSentiment();  // Lists posts with no sentiment
 
-
-      //  List<PostEntity> list = postRepository.findAll();  // Get all posts from database
-       List<PostEntity> list = postRepository.findRowsWithNoSentiment();  // Lists posts with no sentiment
-
-       System.out.println("--- NUMBER OF ROWS WITH NO SENTIMENT IS:  --->>" + list.size());
+        System.out.println("--- NUMBER OF ROWS WITH NO SENTIMENT IS:  --->>" + list.size());
 
         // Here we are iterating over all the posts and calling sentimen class
         for (int h = 0; h < list.size(); h++) {
@@ -67,15 +56,13 @@ public class Sched {
             String sentm = sm.getSentimentOfText(post.getPost());  // this gets the sentiment of the post
             post.setSentiment(sentm);
             postRepository.save(post);  // save in database
-        //    System.out.println(post);
+            //    System.out.println(post);
         }
     }
 
 
-
-
- //   @Scheduled(fixedRate = 100000)
-    public  void callFacebookAPI() {
+    //   @Scheduled(fixedRate = 100000)
+    public void callFacebookAPI() {
         try {
             String accessToken = "EAA4uBIZCLHrEBO5GR1J320nZAi35erJndJdBz6TXx3joyjGipaszk1ZCBNZCIrAGTZBwJ8zmUZCoFdVeBEOlPD0br4AnZAz9TT8wpc3i21Y3ZBhNlORcVMVwdeKTRWUrRqRjZAaZBifkCtCZB7xOsMXmSIkC9ayQ3X3lWrZByDSq3H5B2J5ObVNTOzRAKKHVWjw7FwkEUrxCGPIP";
             String uri = "https://graph.facebook.com/v19.0/me/posts?fields=comments&access_token=" + accessToken;
@@ -99,8 +86,7 @@ public class Sched {
             }
 
             postRepository.saveAll(postsList);
-        }catch(Exception any)
-        {
+        } catch (Exception any) {
             any.printStackTrace();
         }
     }
