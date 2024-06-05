@@ -110,11 +110,6 @@ public class ApiClient {
 
 
             //
-//  ArrayNode fbDataNode = (ArrayNode) fbDataJsonNode.get("data");
-//            ArrayNode fbInnerDataNode = (ArrayNode) fbDataNode.get(0).get("comments").get("data");//
-//            for (int g = 0; g < fbInnerDataNode.size(); g++) {
-//                System.out.println(fbInnerDataNode.get(g).get("message").asText());
-//            }
 
 
 

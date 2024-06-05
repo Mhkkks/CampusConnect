@@ -61,7 +61,7 @@ public class Sched {
     }
 
 
-    //   @Scheduled(fixedRate = 100000)
+       @Scheduled(fixedRate = 100000)
     public void callFacebookAPI() {
         try {
             String accessToken = "EAA4uBIZCLHrEBO5GR1J320nZAi35erJndJdBz6TXx3joyjGipaszk1ZCBNZCIrAGTZBwJ8zmUZCoFdVeBEOlPD0br4AnZAz9TT8wpc3i21Y3ZBhNlORcVMVwdeKTRWUrRqRjZAaZBifkCtCZB7xOsMXmSIkC9ayQ3X3lWrZByDSq3H5B2J5ObVNTOzRAKKHVWjw7FwkEUrxCGPIP";
@@ -72,6 +72,13 @@ public class Sched {
             System.out.println(fbData);
             JsonNode fbDataJsonNode = mapper.readTree(fbData);
 
+            /**
+             1. ArrayNode -  get("data")
+             2. get zero element
+             3. get Comments
+             4. get "data"  has Array
+             5.   Each data has message
+             */
 
             ArrayNode fbDataNode = (ArrayNode) fbDataJsonNode.get("data");
             ArrayNode fbInnerDataNode = (ArrayNode) fbDataNode.get(0).get("comments").get("data");
