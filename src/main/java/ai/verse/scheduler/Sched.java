@@ -61,7 +61,7 @@ public class Sched {
     }
 
 
-       @Scheduled(fixedRate = 100000)
+  //     @Scheduled(fixedRate = 100000)
     public void callFacebookAPI() {
         try {
             String accessToken = "EAA4uBIZCLHrEBO5GR1J320nZAi35erJndJdBz6TXx3joyjGipaszk1ZCBNZCIrAGTZBwJ8zmUZCoFdVeBEOlPD0br4AnZAz9TT8wpc3i21Y3ZBhNlORcVMVwdeKTRWUrRqRjZAaZBifkCtCZB7xOsMXmSIkC9ayQ3X3lWrZByDSq3H5B2J5ObVNTOzRAKKHVWjw7FwkEUrxCGPIP";
