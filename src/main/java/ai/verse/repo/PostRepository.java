@@ -12,7 +12,8 @@ import java.util.List;
 @Repository
 // Spring Data JPA creates CRUD implementation at runtime automatically.
 public interface PostRepository extends JpaRepository<PostEntity, Long> {
-
+    @Query("SELECT u.sentiment as sentiment, count(u.sentiment) as count FROM PostEntity as u group by u.sentiment")  // jpa Query Language
+    List findAggregateData();
 
     // Custom Query - Get rows where sentiment is null. NULL is different from blank
     @Query("SELECT u FROM PostEntity u WHERE u.sentiment is null")  // jpa Query Language

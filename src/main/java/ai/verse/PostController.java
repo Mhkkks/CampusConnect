@@ -20,23 +20,16 @@ import java.util.List;
 import java.util.Map;
 
 // Because I want to create API for posts I created Post controller
+// Controller is helping us to create an API. Here we are API Producer or API Creator
 
 @RestController
 @RequestMapping("api")
 public class PostController {
 
-    // Controller is helping us to create an API. Here we are API Producer or API Creator
+
 
     @Autowired
     PostRepository postRepository;
-
-
-    @RequestMapping(value = "/posts", method = RequestMethod.GET)
-    public ResponseEntity<List> getPosts() {
-        List<PostEntity> list = postRepository.findAll();  //
-        System.out.println("-------------------LIST IS :" + list);
-        return ResponseEntity.status(HttpStatus.OK).body(list);
-    }
 
 
     @GetMapping("/check")
@@ -45,25 +38,57 @@ public class PostController {
     }
 
 
+    @GetMapping(value = "/checklist")
+    ResponseEntity checkList() {
+        List<String> list = new ArrayList();
+        list.add("London");
+        list.add("Singapore");
+        list.add("Dubai");
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+
+
     @GetMapping(value = "/checkmap")
-    ResponseEntity<Map<String, String>> checkMap() {
+    ResponseEntity checkMap() {
         Map<String, String> result = new HashMap<String, String>();
         result.put("1", "London");
         result.put("2", "Singapore");
         result.put("3", "Dubai");
         System.out.println(result);
-        return new ResponseEntity<Map<String, String>>(result, HttpStatus.OK);
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 
 
-    @GetMapping(value = "/checklist")
-    ResponseEntity checkList() {
-       List<String> list = new ArrayList();
-        list.add("London");
-        list.add("Singapore");
-       list.add("Dubai");
+
+
+
+    @RequestMapping(value = "/posts", method = RequestMethod.GET)
+    public ResponseEntity<List> getPosts() {
+        List<PostEntity> list = postRepository.findAll();
+        System.out.println("-------------------LIST IS :" + list);
         return new ResponseEntity(list, HttpStatus.OK);
     }
+
+
+    @RequestMapping(value = "/graphdata", method = RequestMethod.GET)
+    public ResponseEntity<List> getGraphData() {
+        List list = postRepository.findAggregateData();
+        System.out.println("-------------------LIST IS :" + list);
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
