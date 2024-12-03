@@ -56,20 +56,20 @@ Updates the quantity of a specific product.
   "quantity_select": 10
 }
 
-**Response**:  
-- **200 OK**: Quantity updated successfully.
-- **404 Not Found**: Product not found.
-- **400 Bad Request**: Invalid data.
+Response:  
+- 200 OK: Quantity updated successfully.
+- 404 Not Found: Product not found.
+- 400 Bad Request: Invalid data.
 
 ---
 
 ## Cart Management
 
 ### Save Cart Summary
-**Endpoint**: `POST /api/save-cart-summary`  
+Endpoint: `POST /api/save-cart-summary`  
 Saves a cart summary for a specific user.
 
-**Request Body**:
+Request Body:
 ```json
 {
   "userId": "123",
