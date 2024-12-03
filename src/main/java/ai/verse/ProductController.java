@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api")
-@CrossOrigin(origins = "http://localhost:5173") // Replace with your frontend URL
+@CrossOrigin(origins = "http://localhost:5173")
 public class ProductController {
 
     @Autowired
@@ -29,27 +29,23 @@ public class ProductController {
     private JavaMailSender mailSender;
     @GetMapping("/product/4")
     public ResponseEntity<List<ProductEntity>> getProduct() {
-        // Fetch all products from the database
         List<ProductEntity> allProducts = productRepository.findAll();
 
-        // Filter products to only include those with category ID 4
-        List<ProductEntity> category4Products = allProducts.stream()
+           List<ProductEntity> category4Products = allProducts.stream()
                 .filter(product -> product.getCategoryid() == 4)
                 .collect(Collectors.toList());
 
-        // Log the filtered products for debugging purposes
-        if (category4Products.isEmpty()) {
+           if (category4Products.isEmpty()) {
             System.out.println("No products found in category 4.");
         } else {
             System.out.println("Category 4 products: " + category4Products);
         }
 
-        // Return the filtered products with an HTTP 200 status
+
         return new ResponseEntity<>(category4Products, HttpStatus.OK);
     }
 
-   // @PutMapping("/product/update/{id}")
-    public ResponseEntity<String> updateProductQuantity(@PathVariable Long id, @RequestBody Map<String, Integer> body) {
+       public ResponseEntity<String> updateProductQuantity(@PathVariable Long id, @RequestBody Map<String, Integer> body) {
         if (body.containsKey("quantity_select")) {
             int newQuantity = body.get("quantity_select");
             Optional<ProductEntity> productOptional = productRepository.findById(id);
@@ -76,7 +72,7 @@ public class ProductController {
     private CartRepository cartRepository;
     @PostMapping("/save-cart-summary")
     public ResponseEntity<String> saveCartSummary(@RequestBody Map<String, String> request) {
-        // Extract the userId from the request and parse it as an Integer
+
         Integer userId = null;
         try {
             userId = Integer.parseInt(request.get("userId"));
@@ -85,12 +81,10 @@ public class ProductController {
         }
         String cartSummary = request.get("cartSummary");
 
-        // Check if userId or cartSummary is null or empty
-        if (userId == null || cartSummary == null || cartSummary.isEmpty()) {
+           if (userId == null || cartSummary == null || cartSummary.isEmpty()) {
             return ResponseEntity.badRequest().body("User ID and Cart Summary are required.");
         }
 
-        // Save to the database
         CartEntity cartEntity = new CartEntity();
         cartEntity.setId(userId);
         cartEntity.setCart_summary(cartSummary);
@@ -106,17 +100,16 @@ public class ProductController {
             return ResponseEntity.badRequest().body("Email is required.");
         }
 
-        // Generate a 6-digit OTP
+
         String otp = String.valueOf((int) (Math.random() * 900000) + 100000);
 
-        // Save the email and OTP in the database
+
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(email);
-        userEntity.setPassword(otp); // Storing OTP in 'password' field for simplicity
+        userEntity.setPassword(otp);
         userRepository.save(userEntity);
 
-        // Send the OTP via email
-        SimpleMailMessage message = new SimpleMailMessage();
+         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("your-email@example.com");
         message.setTo(email);
         message.setSubject("Your OTP Code");
