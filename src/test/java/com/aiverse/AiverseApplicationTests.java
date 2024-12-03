@@ -1,10 +1,10 @@
-package com.ccapi;
+package com.aiverse;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CampusConnectAppTests {
+class AiverseApplicationTests {
 
 	@Test
 	void contextLoads() {
